@@ -1,0 +1,51 @@
+{
+  "_comment": "funding-news-bot の設定ファイル。ここの値を変えるとBotの動きが変わります。コーディング不要、文字を書き換えるだけでOKです。",
+
+  "search": {
+    "_comment": "PR TIMESで資金調達ニュースを探すときの設定。",
+    "source": "PR TIMES",
+    "url": "https://prtimes.jp/",
+    "keywords": ["資金調達", "シリーズA", "シリーズB", "シリーズC", "プレシード", "シード", "デットファイナンス", "融資", "ベンチャーデット"],
+    "_keywords_comment": "PR TIMESで検索する言葉。増やすとヒット数が増え、減らすと絞られます。"
+  },
+
+  "filter": {
+    "_comment": "拾ったニュースのうち、記事にする対象を絞り込む条件。",
+    "funding_types": ["equity", "debt"],
+    "_funding_types_comment": "対象とする調達の種類。equity=株式での調達、debt=融資・社債などの借入。",
+    "region": "Japan",
+    "_region_comment": "日本のスタートアップに限定。海外企業の調達ニュースは除外する。",
+    "exclude": ["上場企業のIR", "M&A・買収のみのニュース", "助成金・補助金のみ", "クラウドファンディングのみ", "老舗企業・スタートアップではない企業"],
+    "_exclude_comment": "資金調達に見えても記事の対象外にしたいもの。設立から年数が経った老舗企業は、エクイティ調達でも対象外とする。"
+  },
+
+  "output": {
+    "_comment": "生成した下書きの出力先と、運用者がSubstack投稿に使う情報。",
+    "substack_home_url": "ここにSubstackのマイページ(管理画面)のURLを貼る",
+    "_substack_home_url_comment": "運用者が下書きを確認後、過去記事を複製・差し替え・投稿する画面のURL。Bot自身は投稿しない。",
+    "today_dir": "output/today",
+    "archive_dir": "output/archive"
+  },
+
+  "notify": {
+    "_comment": "下書きが完成したら、専用Slack Bot『資金調達ニュースBot』からDMで運用者に届ける設定。",
+    "method": "slack_bot_dm",
+    "slack_workspace": "mint (apricottlm.slack.com)",
+    "slack_user_id": "U099BP0GT5G",
+    "_slack_user_id_comment": "mintワークスペースでの運用者(chayano@apricot.vc)のユーザーID。Bot DMの宛先。",
+    "slack_token_location": ".env の SLACK_BOT_TOKEN",
+    "_slack_token_comment": "Botトークンは秘密情報のため .env ファイルに保管。.env は共有・公開しない（.gitignore済み）。"
+  },
+
+  "schedule": {
+    "_comment": "Botの自動実行スケジュール。claude.aiのルーティンとして登録済み(稼働中)。",
+    "run_time": "18:00",
+    "_run_time_comment": "18:00に実行する理由: スタートアップは資金調達ニュースを16〜17時に出すことが多く、それを拾い切れる夕方の時刻にしている。",
+    "timezone": "Asia/Tokyo",
+    "days": ["月", "火", "水", "木", "金"],
+    "_days_comment": "実行する曜日。平日のみ。土日は実行しない。",
+    "routine_id": "trig_01Gpyx6KEmisdRZ6A6QghBvu",
+    "routine_url": "https://claude.ai/code/routines/trig_01Gpyx6KEmisdRZ6A6QghBvu",
+    "_routine_comment": "登録済みルーティン。設定変更(キーワード等)はルーティンの指示文も更新が必要。"
+  }
+}
